@@ -16,18 +16,64 @@
   }
 }
 
+/* <svg id="noise" xmlns="http://www.w3.org/2000/svg" version="1.1"><defs><filter id="noiseFilter"><feTurbulence numOctaves="1" seed="random" baseFrequency="0.005" stitchTiles="stitch" type="turbulence" /></filter></defs></svg> */
+/* <svg id="noise" viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='noiseFilter'><feTurbulence type='fractalNoise'
+baseFrequency='8.95'
+numOctaves='5'
+
+stitchTiles='stitch' /></filter><rect width='100%' height='100%' filter='url(#noiseFilter)' /></svg> */
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+
+  /* Apply the gradient and filter */
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)) filter(url(#noise));
 }
+
+/* .film-grain {
+  filter: url(#noise);
+} */
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+.film-grain {
+  /* width: 250px;
+    height: 250px; */
+  filter: contrast(140%) brightness(150%);
+  background:
+    conic-gradient(from 360deg at 50% 50%, rgba(44, 67, 80, 1), rgba(53, 19, 19, 0)),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='8.95' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.cursor {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: difference;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  transition: all 0.05s ease-out;
 }
